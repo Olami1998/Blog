@@ -1,0 +1,64 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Search | {% endblock title %}
+
+{% block content %}
+<section class="hero ">
+    <div class="hero-body">
+      <div class="container">
+        <section class="section">
+            <div class="columns">
+                <div class="column is-8 is-offset-2">
+                    <div class="content is-medium">
+                        <h1>Search Results</h1>
+                        <h3>Query "{{ query }}"</h3>
+                    </div>
+
+                    {% for post in posts %}
+						<div class="col-md-6 card">
+                        {% if post.image %}
+							<a href="{% url 'single' post.category.slug post.slug %}">
+								<img src="{{ post.image.url }}" class="card-img-top img-fluid" alt="">
+							</a>
+                        {% else %}
+                            <a href="{% url 'single' post.category.slug post.slug %}">
+								<img src="{% static 'core/images/7.jpg' %}" class="card-img-top img-fluid" alt="">
+							</a>
+                        {% endif %}
+							<div class="card-body">
+								<ul class="blog-icons my-4">
+									<li>
+										<a> 
+											<i class="far fa-calendar-alt"></i> {{ post.created_at|timesince }} ago</a>
+									</li>
+									<li class="mx-2">
+										<a>
+											<i class="far fa-comment"></i> 21</a>
+									</li>
+									<li>
+										<a>
+											<i class="fas fa-eye"></i> 2000</a>
+									</li>
+
+								</ul>
+								<h5 class="card-title ">
+									<a>{{ post.title }}</a>
+								</h5>
+								<p class="card-text mb-3">{{ post.intro }}.. </p>
+								<a href="{% url 'single' post.category.slug post.slug %}" class="btn btn-primary read-m">Read More</a>
+							</div>
+						</div>
+                    
+                    {% empty %}
+                        <div>
+                            <p>No Results for the given query...</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+                
+{% endblock content %}

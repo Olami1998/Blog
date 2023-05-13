@@ -1,0 +1,16 @@
+{% extends "core/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+<div stlye="margin: 50px">
+    <div class="jumbotron">
+        <p><h1>you've logged out successfully.</h1></p>
+        <p><h1>click the link below to login</h1></p>
+        <div>
+            <a href="{% url 'accounts:login' %}" class="btn btn-primary submit">Login</a>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}

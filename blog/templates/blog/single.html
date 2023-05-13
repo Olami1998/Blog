@@ -1,0 +1,80 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}{{ post.title }} | {% endblock title %}
+{% block content %}
+	<!--//banner-->
+	<section class="banner-bottom">
+		<!--/blog-->
+		<div class="container">
+			<div class="row">
+				<!--left-->
+				<div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
+					<div class="blog-grid-top">
+						<div class="b-grid-top">
+							{% if post.image %}
+							<div class="blog_info_left_grid">
+								<a>
+									<img src="{{ post.image.url }}" class="img-fluid" alt="">
+								</a>
+							</div>
+							{% else %}
+							<div class="blog_info_left_grid">
+								<a>
+									<img src="{% static 'core/images/7.jpg' %}" class="img-fluid" alt="">
+								</a>
+							</div>
+							{% endif %}
+							<div class="blog-info-middle">
+								<ul>
+									<li>
+										<a href="#">
+											<i class="far fa-calendar-alt"></i> {{ post.created_at }}</a>
+									</li>
+									<li class="mx-2">
+										<a href="#">
+											<i class="far fa-thumbs-up"></i> 201 Likes</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="far fa-comment"></i> 15 Comments</a>
+									</li>
+									
+								</ul>
+							</div>
+						</div>
+
+						<h3>
+							<a href="">{{ post.title }} </a>
+						</h3>
+						<p>{{ post.body }}</p>
+						<p><small>Category: <a href="{% url 'category_detail' post.category.slug %}">{{ post.category }}</a></small></p>
+					</div>
+
+					<div class="comment-top">
+						<h4>Comments</h4>
+						{% for comment in post.comments.all %}
+						
+						<div class="media">
+							<img src="{% static 'core/images/t1.jpg' %}" alt="" class="img-fluid" />
+							<div class="media-body">
+								<h5 class="mt-0">{{ comment.name }}</h5>
+								<p>{{ comment.body }}</p>
+
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+					<div class="comment-top">
+						<h4>Leave a Comment</h4>
+						<div class="comment-bottom">
+							<form action="" method="post">
+								{% csrf_token %}
+								{{ form.as_p }}
+								<button type="submit" class="btn btn-primary submit">Submit</button>
+							</form>
+						</div>
+					</div>
+				</div>
+</section>
+				{% endblock %}
